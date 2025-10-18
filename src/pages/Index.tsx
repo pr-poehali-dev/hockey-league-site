@@ -7,6 +7,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import Icon from '@/components/ui/icon';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import TeamDropdown from '@/components/TeamDropdown';
 
 const teamLogos: Record<string, string> = {
   'Авангард': 'https://img.khl.ru/teams/ru/1288/34/80.png',
@@ -219,9 +220,12 @@ export default function Index() {
               <Icon name="Trophy" size={36} className="text-primary" />
               <div>
                 <h1 className="text-3xl font-bold text-foreground">VPHL</h1>
-                <p className="text-sm text-muted-foreground">Virtual Premier Hockey League</p>
+                <p className="text-sm text-muted-foreground">Virtual Puck Hockey League</p>
               </div>
             </div>
+            <nav>
+              <TeamDropdown />
+            </nav>
           </div>
         </div>
       </header>
