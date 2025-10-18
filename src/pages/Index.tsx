@@ -1,14 +1,426 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { useState } from 'react';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { Badge } from '@/components/ui/badge';
+import { Input } from '@/components/ui/input';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import Icon from '@/components/ui/icon';
+import { Button } from '@/components/ui/button';
 
-const Index = () => {
+const teams = [
+  { id: 1, name: 'Северные Волки', games: 24, wins: 18, losses: 4, ot: 2, points: 38, goalsFor: 92, goalsAgainst: 54 },
+  { id: 2, name: 'Стальные Акулы', games: 24, wins: 16, losses: 6, ot: 2, points: 34, goalsFor: 88, goalsAgainst: 61 },
+  { id: 3, name: 'Молнии', games: 24, wins: 15, losses: 7, ot: 2, points: 32, goalsFor: 79, goalsAgainst: 65 },
+  { id: 4, name: 'Красные Драконы', games: 24, wins: 14, losses: 8, ot: 2, points: 30, goalsFor: 76, goalsAgainst: 68 },
+  { id: 5, name: 'Снежные Барсы', games: 24, wins: 12, losses: 9, ot: 3, points: 27, goalsFor: 71, goalsAgainst: 70 },
+  { id: 6, name: 'Титаны', games: 24, wins: 11, losses: 10, ot: 3, points: 25, goalsFor: 68, goalsAgainst: 72 },
+  { id: 7, name: 'Ледяные Медведи', games: 24, wins: 9, losses: 12, ot: 3, points: 21, goalsFor: 62, goalsAgainst: 78 },
+  { id: 8, name: 'Рыцари', games: 24, wins: 5, losses: 17, ot: 2, points: 12, goalsFor: 51, goalsAgainst: 95 },
+];
+
+const players = [
+  { id: 1, name: 'Иванов Алексей', team: 'Северные Волки', position: 'Нападающий', games: 24, goals: 28, assists: 35, points: 63, pim: 12, captain: true },
+  { id: 2, name: 'Петров Дмитрий', team: 'Стальные Акулы', position: 'Нападающий', games: 24, goals: 24, assists: 32, points: 56, pim: 18, captain: true },
+  { id: 3, name: 'Смирнов Сергей', team: 'Молнии', position: 'Нападающий', games: 24, goals: 22, assists: 29, points: 51, pim: 8, captain: false },
+  { id: 4, name: 'Козлов Андрей', team: 'Северные Волки', position: 'Защитник', games: 24, goals: 8, assists: 28, points: 36, pim: 24, captain: false },
+  { id: 5, name: 'Морозов Павел', team: 'Красные Драконы', position: 'Нападающий', games: 24, goals: 19, assists: 23, points: 42, pim: 14, captain: true },
+  { id: 6, name: 'Новиков Иван', team: 'Стальные Акулы', position: 'Вратарь', games: 22, goals: 0, assists: 2, points: 2, pim: 0, captain: false },
+  { id: 7, name: 'Федоров Максим', team: 'Снежные Барсы', position: 'Нападающий', games: 24, goals: 17, assists: 21, points: 38, pim: 22, captain: true },
+  { id: 8, name: 'Соколов Артем', team: 'Молнии', position: 'Защитник', games: 24, goals: 6, assists: 24, points: 30, pim: 30, captain: true },
+];
+
+const games = [
+  { id: 1, date: '2025-10-20', homeTeam: 'Северные Волки', awayTeam: 'Стальные Акулы', homeScore: null, awayScore: null, time: '19:00' },
+  { id: 2, date: '2025-10-20', homeTeam: 'Молнии', awayTeam: 'Красные Драконы', homeScore: null, awayScore: null, time: '19:30' },
+  { id: 3, date: '2025-10-18', homeTeam: 'Северные Волки', awayTeam: 'Рыцари', homeScore: 5, awayScore: 2, time: '19:00' },
+  { id: 4, date: '2025-10-18', homeTeam: 'Титаны', awayTeam: 'Молнии', homeScore: 3, awayScore: 4, time: '18:30' },
+  { id: 5, date: '2025-10-17', homeTeam: 'Стальные Акулы', awayTeam: 'Снежные Барсы', homeScore: 4, awayScore: 3, time: '19:00' },
+];
+
+const playoffs = [
+  { round: 'Полуфинал 1', team1: 'Северные Волки', team2: 'Снежные Барсы', score1: null, score2: null },
+  { round: 'Полуфинал 2', team1: 'Стальные Акулы', team2: 'Молнии', score1: null, score2: null },
+  { round: 'Финал', team1: 'TBD', team2: 'TBD', score1: null, score2: null },
+];
+
+export default function Index() {
+  const [selectedTab, setSelectedTab] = useState('standings');
+  const [playerFilter, setPlayerFilter] = useState('all');
+  const [positionFilter, setPositionFilter] = useState('all');
+  const [sortBy, setSortBy] = useState('points');
+
+  const filteredPlayers = players
+    .filter(p => playerFilter === 'all' || p.team === playerFilter)
+    .filter(p => positionFilter === 'all' || p.position === positionFilter)
+    .sort((a, b) => {
+      if (sortBy === 'points') return b.points - a.points;
+      if (sortBy === 'goals') return b.goals - a.goals;
+      if (sortBy === 'assists') return b.assists - a.assists;
+      return 0;
+    });
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4 color-black text-black">Добро пожаловать!</h1>
-        <p className="text-xl text-gray-600">тут будет отображаться ваш проект</p>
-      </div>
+    <div className="min-h-screen bg-background">
+      <header className="border-b border-border bg-card/50 backdrop-blur-sm sticky top-0 z-50">
+        <div className="container mx-auto px-4 py-4">
+          <div className="flex items-center gap-4">
+            <div className="flex items-center gap-2">
+              <Icon name="Trophy" size={32} className="text-primary" />
+              <h1 className="text-3xl font-bold text-foreground">Хоккейная Лига</h1>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <main className="container mx-auto px-4 py-8">
+        <Tabs value={selectedTab} onValueChange={setSelectedTab} className="w-full">
+          <TabsList className="grid w-full grid-cols-5 lg:w-auto lg:inline-grid mb-8 bg-muted/50">
+            <TabsTrigger value="standings" className="gap-2">
+              <Icon name="Table" size={16} />
+              Таблица
+            </TabsTrigger>
+            <TabsTrigger value="playoffs" className="gap-2">
+              <Icon name="Award" size={16} />
+              Плей-офф
+            </TabsTrigger>
+            <TabsTrigger value="calendar" className="gap-2">
+              <Icon name="Calendar" size={16} />
+              Календарь
+            </TabsTrigger>
+            <TabsTrigger value="players" className="gap-2">
+              <Icon name="Users" size={16} />
+              Игроки
+            </TabsTrigger>
+            <TabsTrigger value="rules" className="gap-2">
+              <Icon name="FileText" size={16} />
+              Регламент
+            </TabsTrigger>
+          </TabsList>
+
+          <TabsContent value="standings" className="animate-fade-in">
+            <Card className="bg-card/50 backdrop-blur border-border">
+              <CardHeader>
+                <CardTitle className="text-2xl flex items-center gap-2">
+                  <Icon name="TrendingUp" size={24} className="text-primary" />
+                  Турнирная таблица
+                </CardTitle>
+                <CardDescription>Регулярный сезон 2025</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="overflow-x-auto">
+                  <Table>
+                    <TableHeader>
+                      <TableRow className="hover:bg-transparent border-border">
+                        <TableHead className="w-12">#</TableHead>
+                        <TableHead>Команда</TableHead>
+                        <TableHead className="text-center">И</TableHead>
+                        <TableHead className="text-center">В</TableHead>
+                        <TableHead className="text-center">П</TableHead>
+                        <TableHead className="text-center">ОТ</TableHead>
+                        <TableHead className="text-center font-bold">О</TableHead>
+                        <TableHead className="text-center">Ш</TableHead>
+                        <TableHead className="text-center">ПШ</TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      {teams.map((team, index) => (
+                        <TableRow key={team.id} className="hover:bg-muted/50 transition-colors border-border">
+                          <TableCell className="font-medium">{index + 1}</TableCell>
+                          <TableCell className="font-semibold">
+                            <div className="flex items-center gap-2">
+                              {team.name}
+                              {index < 4 && <Badge variant="default" className="bg-primary/20 text-primary">Плей-офф</Badge>}
+                            </div>
+                          </TableCell>
+                          <TableCell className="text-center">{team.games}</TableCell>
+                          <TableCell className="text-center text-green-500">{team.wins}</TableCell>
+                          <TableCell className="text-center text-red-500">{team.losses}</TableCell>
+                          <TableCell className="text-center text-yellow-500">{team.ot}</TableCell>
+                          <TableCell className="text-center font-bold text-lg text-primary">{team.points}</TableCell>
+                          <TableCell className="text-center">{team.goalsFor}</TableCell>
+                          <TableCell className="text-center">{team.goalsAgainst}</TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          <TabsContent value="playoffs" className="animate-fade-in">
+            <Card className="bg-card/50 backdrop-blur border-border">
+              <CardHeader>
+                <CardTitle className="text-2xl flex items-center gap-2">
+                  <Icon name="Award" size={24} className="text-secondary" />
+                  Сетка плей-офф
+                </CardTitle>
+                <CardDescription>Борьба за главный трофей</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+                  {playoffs.map((match, index) => (
+                    <Card key={index} className="bg-muted/30 border-border hover:bg-muted/50 transition-all">
+                      <CardHeader>
+                        <CardTitle className="text-lg">{match.round}</CardTitle>
+                      </CardHeader>
+                      <CardContent className="space-y-3">
+                        <div className="flex items-center justify-between p-3 bg-card rounded-lg border border-border">
+                          <span className="font-semibold">{match.team1}</span>
+                          {match.score1 !== null && (
+                            <Badge variant="outline" className="text-lg px-3">{match.score1}</Badge>
+                          )}
+                        </div>
+                        <div className="text-center text-muted-foreground text-sm">VS</div>
+                        <div className="flex items-center justify-between p-3 bg-card rounded-lg border border-border">
+                          <span className="font-semibold">{match.team2}</span>
+                          {match.score2 !== null && (
+                            <Badge variant="outline" className="text-lg px-3">{match.score2}</Badge>
+                          )}
+                        </div>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          <TabsContent value="calendar" className="animate-fade-in">
+            <Card className="bg-card/50 backdrop-blur border-border">
+              <CardHeader>
+                <CardTitle className="text-2xl flex items-center gap-2">
+                  <Icon name="CalendarDays" size={24} className="text-primary" />
+                  Календарь игр
+                </CardTitle>
+                <CardDescription>Расписание матчей сезона</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  {games.map((game) => (
+                    <Card key={game.id} className="bg-muted/30 border-border hover:bg-muted/50 transition-all">
+                      <CardContent className="p-4">
+                        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                          <div className="flex items-center gap-3">
+                            <Badge variant="outline" className="text-sm">
+                              {new Date(game.date).toLocaleDateString('ru-RU', { day: '2-digit', month: '2-digit' })}
+                            </Badge>
+                            <span className="text-muted-foreground">{game.time}</span>
+                          </div>
+                          <div className="flex items-center gap-4 flex-1 justify-center">
+                            <span className="font-semibold text-right flex-1">{game.homeTeam}</span>
+                            {game.homeScore !== null ? (
+                              <div className="flex items-center gap-2">
+                                <Badge className="bg-primary text-lg px-3">{game.homeScore}</Badge>
+                                <span className="text-muted-foreground">:</span>
+                                <Badge className="bg-primary text-lg px-3">{game.awayScore}</Badge>
+                              </div>
+                            ) : (
+                              <span className="text-muted-foreground px-4">VS</span>
+                            )}
+                            <span className="font-semibold text-left flex-1">{game.awayTeam}</span>
+                          </div>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          <TabsContent value="players" className="animate-fade-in">
+            <Card className="bg-card/50 backdrop-blur border-border">
+              <CardHeader>
+                <CardTitle className="text-2xl flex items-center gap-2">
+                  <Icon name="Users" size={24} className="text-primary" />
+                  Статистика игроков
+                </CardTitle>
+                <CardDescription>Детальная статистика с фильтрацией</CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="flex flex-col md:flex-row gap-4">
+                  <Select value={playerFilter} onValueChange={setPlayerFilter}>
+                    <SelectTrigger className="w-full md:w-[200px] bg-muted border-border">
+                      <SelectValue placeholder="Команда" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="all">Все команды</SelectItem>
+                      {teams.map(team => (
+                        <SelectItem key={team.id} value={team.name}>{team.name}</SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+
+                  <Select value={positionFilter} onValueChange={setPositionFilter}>
+                    <SelectTrigger className="w-full md:w-[200px] bg-muted border-border">
+                      <SelectValue placeholder="Позиция" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="all">Все позиции</SelectItem>
+                      <SelectItem value="Нападающий">Нападающий</SelectItem>
+                      <SelectItem value="Защитник">Защитник</SelectItem>
+                      <SelectItem value="Вратарь">Вратарь</SelectItem>
+                    </SelectContent>
+                  </Select>
+
+                  <Select value={sortBy} onValueChange={setSortBy}>
+                    <SelectTrigger className="w-full md:w-[200px] bg-muted border-border">
+                      <SelectValue placeholder="Сортировка" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="points">По очкам</SelectItem>
+                      <SelectItem value="goals">По голам</SelectItem>
+                      <SelectItem value="assists">По передачам</SelectItem>
+                    </SelectContent>
+                  </Select>
+
+                  <Button variant="outline" onClick={() => {
+                    setPlayerFilter('all');
+                    setPositionFilter('all');
+                    setSortBy('points');
+                  }}>
+                    <Icon name="RotateCcw" size={16} />
+                    Сброс
+                  </Button>
+                </div>
+
+                <div className="overflow-x-auto">
+                  <Table>
+                    <TableHeader>
+                      <TableRow className="hover:bg-transparent border-border">
+                        <TableHead className="w-12">#</TableHead>
+                        <TableHead>Игрок</TableHead>
+                        <TableHead>Команда</TableHead>
+                        <TableHead>Позиция</TableHead>
+                        <TableHead className="text-center">И</TableHead>
+                        <TableHead className="text-center">Г</TableHead>
+                        <TableHead className="text-center">П</TableHead>
+                        <TableHead className="text-center font-bold">О</TableHead>
+                        <TableHead className="text-center">Штр</TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      {filteredPlayers.map((player, index) => (
+                        <TableRow key={player.id} className="hover:bg-muted/50 transition-colors border-border">
+                          <TableCell className="font-medium">{index + 1}</TableCell>
+                          <TableCell className="font-semibold">
+                            <div className="flex items-center gap-2">
+                              {player.name}
+                              {player.captain && <Badge variant="secondary" className="bg-secondary/20 text-secondary">К</Badge>}
+                            </div>
+                          </TableCell>
+                          <TableCell className="text-muted-foreground">{player.team}</TableCell>
+                          <TableCell>
+                            <Badge variant="outline" className="bg-muted/50">
+                              {player.position}
+                            </Badge>
+                          </TableCell>
+                          <TableCell className="text-center">{player.games}</TableCell>
+                          <TableCell className="text-center text-primary">{player.goals}</TableCell>
+                          <TableCell className="text-center text-secondary">{player.assists}</TableCell>
+                          <TableCell className="text-center font-bold text-lg">{player.points}</TableCell>
+                          <TableCell className="text-center text-muted-foreground">{player.pim}</TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          <TabsContent value="rules" className="animate-fade-in">
+            <Card className="bg-card/50 backdrop-blur border-border">
+              <CardHeader>
+                <CardTitle className="text-2xl flex items-center gap-2">
+                  <Icon name="FileText" size={24} className="text-primary" />
+                  Регламент лиги
+                </CardTitle>
+                <CardDescription>Правила и положения турнира</CardDescription>
+              </CardHeader>
+              <CardContent className="prose prose-invert max-w-none">
+                <div className="space-y-6">
+                  <div>
+                    <h3 className="text-xl font-semibold mb-3 flex items-center gap-2">
+                      <Icon name="Trophy" size={20} className="text-primary" />
+                      1. Формат турнира
+                    </h3>
+                    <p className="text-muted-foreground leading-relaxed">
+                      Лига состоит из 8 команд. Регулярный сезон проводится по системе "каждый с каждым" в 3 круга. 
+                      По итогам регулярного чемпионата 4 лучшие команды выходят в плей-офф.
+                    </p>
+                  </div>
+
+                  <div>
+                    <h3 className="text-xl font-semibold mb-3 flex items-center gap-2">
+                      <Icon name="Calculator" size={20} className="text-primary" />
+                      2. Начисление очков
+                    </h3>
+                    <ul className="space-y-2 text-muted-foreground">
+                      <li className="flex items-start gap-2">
+                        <Icon name="CheckCircle2" size={16} className="text-green-500 mt-1" />
+                        <span>Победа в основное время - 3 очка</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <Icon name="Clock" size={16} className="text-yellow-500 mt-1" />
+                        <span>Победа в овертайме/буллитах - 2 очка</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <Icon name="MinusCircle" size={16} className="text-orange-500 mt-1" />
+                        <span>Поражение в овертайме/буллитах - 1 очко</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <Icon name="XCircle" size={16} className="text-red-500 mt-1" />
+                        <span>Поражение в основное время - 0 очков</span>
+                      </li>
+                    </ul>
+                  </div>
+
+                  <div>
+                    <h3 className="text-xl font-semibold mb-3 flex items-center gap-2">
+                      <Icon name="Users" size={20} className="text-primary" />
+                      3. Составы команд
+                    </h3>
+                    <p className="text-muted-foreground leading-relaxed">
+                      В заявке команды может быть не более 25 игроков, включая 3 вратарей. 
+                      Каждая команда должна иметь капитана и двух ассистентов капитана.
+                    </p>
+                  </div>
+
+                  <div>
+                    <h3 className="text-xl font-semibold mb-3 flex items-center gap-2">
+                      <Icon name="Award" size={20} className="text-secondary" />
+                      4. Плей-офф
+                    </h3>
+                    <p className="text-muted-foreground leading-relaxed">
+                      Полуфинальные серии и финал проводятся до 3 побед. При равенстве счета в матче плей-офф 
+                      назначается овертайм без ограничения времени до первой заброшенной шайбы.
+                    </p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+        </Tabs>
+      </main>
+
+      <footer className="border-t border-border mt-16 bg-card/30">
+        <div className="container mx-auto px-4 py-8">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+            <div className="flex items-center gap-2">
+              <Icon name="Trophy" size={24} className="text-primary" />
+              <span className="font-semibold">Хоккейная Лига 2025</span>
+            </div>
+            <div className="flex gap-6 text-muted-foreground text-sm">
+              <a href="#" className="hover:text-primary transition-colors">Контакты</a>
+              <a href="#" className="hover:text-primary transition-colors">О лиге</a>
+              <a href="#" className="hover:text-primary transition-colors">Партнеры</a>
+            </div>
+          </div>
+        </div>
+      </footer>
     </div>
   );
-};
-
-export default Index;
+}
