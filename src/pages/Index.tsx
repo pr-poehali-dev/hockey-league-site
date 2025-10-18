@@ -223,8 +223,38 @@ export default function Index() {
                 <p className="text-sm text-muted-foreground">Virtual Puck Hockey League</p>
               </div>
             </div>
-            <nav>
+            <nav className="flex items-center gap-1">
+              <button
+                onClick={() => setSelectedTab('standings')}
+                className={`px-4 py-2 text-foreground hover:text-primary transition-colors font-medium ${selectedTab === 'standings' ? 'text-primary' : ''}`}
+              >
+                Таблица
+              </button>
+              <button
+                onClick={() => setSelectedTab('stats')}
+                className={`px-4 py-2 text-foreground hover:text-primary transition-colors font-medium ${selectedTab === 'stats' ? 'text-primary' : ''}`}
+              >
+                Статистика
+              </button>
+              <button
+                onClick={() => setSelectedTab('players')}
+                className={`px-4 py-2 text-foreground hover:text-primary transition-colors font-medium ${selectedTab === 'players' ? 'text-primary' : ''}`}
+              >
+                Игроки
+              </button>
               <TeamDropdown />
+              <button
+                onClick={() => setSelectedTab('calendar')}
+                className={`px-4 py-2 text-foreground hover:text-primary transition-colors font-medium ${selectedTab === 'calendar' ? 'text-primary' : ''}`}
+              >
+                Календарь
+              </button>
+              <button
+                onClick={() => setSelectedTab('tickets')}
+                className={`px-4 py-2 text-foreground hover:text-primary transition-colors font-medium ${selectedTab === 'tickets' ? 'text-primary' : ''}`}
+              >
+                Билеты
+              </button>
             </nav>
           </div>
         </div>
@@ -285,36 +315,6 @@ export default function Index() {
 
       <main className="container mx-auto px-4 py-8">
         <Tabs value={selectedTab} onValueChange={setSelectedTab} className="w-full">
-          <TabsList className="grid w-full grid-cols-7 lg:w-auto lg:inline-grid mb-8 bg-muted/50">
-            <TabsTrigger value="standings" className="gap-2">
-              <Icon name="Table" size={16} />
-              <span className="hidden sm:inline">Таблица</span>
-            </TabsTrigger>
-            <TabsTrigger value="playoffs" className="gap-2">
-              <Icon name="Award" size={16} />
-              <span className="hidden sm:inline">Плей-офф</span>
-            </TabsTrigger>
-            <TabsTrigger value="stats" className="gap-2">
-              <Icon name="BarChart3" size={16} />
-              <span className="hidden sm:inline">Статистика</span>
-            </TabsTrigger>
-            <TabsTrigger value="calendar" className="gap-2">
-              <Icon name="Calendar" size={16} />
-              <span className="hidden sm:inline">Календарь</span>
-            </TabsTrigger>
-            <TabsTrigger value="players" className="gap-2">
-              <Icon name="Users" size={16} />
-              <span className="hidden sm:inline">Игроки</span>
-            </TabsTrigger>
-            <TabsTrigger value="tickets" className="gap-2">
-              <Icon name="Ticket" size={16} />
-              <span className="hidden sm:inline">Билеты</span>
-            </TabsTrigger>
-            <TabsTrigger value="rules" className="gap-2">
-              <Icon name="FileText" size={16} />
-              <span className="hidden sm:inline">Регламент</span>
-            </TabsTrigger>
-          </TabsList>
 
           <TabsContent value="standings" className="animate-fade-in">
             <Card className="bg-card/50 backdrop-blur border-border">
@@ -323,7 +323,7 @@ export default function Index() {
                   <Icon name="TrendingUp" size={24} className="text-primary" />
                   Турнирная таблица
                 </CardTitle>
-                <CardDescription>Регулярный сезон 2025</CardDescription>
+
               </CardHeader>
               <CardContent className="space-y-6">
                 <div className="flex gap-2 justify-center">
