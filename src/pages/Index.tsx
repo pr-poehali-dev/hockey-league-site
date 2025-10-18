@@ -8,6 +8,7 @@ import Icon from '@/components/ui/icon';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import TeamDropdown from '@/components/TeamDropdown';
+import StatsDropdown from '@/components/StatsDropdown';
 
 const teamLogos: Record<string, string> = {
   'Авангард': 'https://img.khl.ru/teams/ru/1288/34/80.png',
@@ -223,39 +224,43 @@ export default function Index() {
                 <p className="text-sm text-muted-foreground">Virtual Puck Hockey League</p>
               </div>
             </div>
-            <nav className="flex items-center gap-1">
-              <button
-                onClick={() => setSelectedTab('standings')}
-                className={`px-4 py-2 text-foreground hover:text-primary transition-colors font-medium ${selectedTab === 'standings' ? 'text-primary' : ''}`}
+            <div className="flex items-center gap-4">
+              <nav className="flex items-center gap-1">
+                <button
+                  onClick={() => setSelectedTab('standings')}
+                  className={`px-4 py-2 text-foreground hover:text-primary transition-colors font-medium ${selectedTab === 'standings' ? 'text-primary' : ''}`}
+                >
+                  Таблица
+                </button>
+                <StatsDropdown onSelect={setSelectedTab} selectedTab={selectedTab} />
+                <button
+                  onClick={() => setSelectedTab('players')}
+                  className={`px-4 py-2 text-foreground hover:text-primary transition-colors font-medium ${selectedTab === 'players' ? 'text-primary' : ''}`}
+                >
+                  Игроки
+                </button>
+                <TeamDropdown />
+                <button
+                  onClick={() => setSelectedTab('calendar')}
+                  className={`px-4 py-2 text-foreground hover:text-primary transition-colors font-medium ${selectedTab === 'calendar' ? 'text-primary' : ''}`}
+                >
+                  Календарь
+                </button>
+                <button
+                  onClick={() => setSelectedTab('tickets')}
+                  className={`px-4 py-2 text-foreground hover:text-primary transition-colors font-medium ${selectedTab === 'tickets' ? 'text-primary' : ''}`}
+                >
+                  Билеты
+                </button>
+              </nav>
+              <a 
+                href="/admin" 
+                className="px-3 py-1.5 bg-primary/20 hover:bg-primary/30 text-primary rounded-md transition-colors flex items-center gap-2 text-sm font-medium"
               >
-                Таблица
-              </button>
-              <button
-                onClick={() => setSelectedTab('stats')}
-                className={`px-4 py-2 text-foreground hover:text-primary transition-colors font-medium ${selectedTab === 'stats' ? 'text-primary' : ''}`}
-              >
-                Статистика
-              </button>
-              <button
-                onClick={() => setSelectedTab('players')}
-                className={`px-4 py-2 text-foreground hover:text-primary transition-colors font-medium ${selectedTab === 'players' ? 'text-primary' : ''}`}
-              >
-                Игроки
-              </button>
-              <TeamDropdown />
-              <button
-                onClick={() => setSelectedTab('calendar')}
-                className={`px-4 py-2 text-foreground hover:text-primary transition-colors font-medium ${selectedTab === 'calendar' ? 'text-primary' : ''}`}
-              >
-                Календарь
-              </button>
-              <button
-                onClick={() => setSelectedTab('tickets')}
-                className={`px-4 py-2 text-foreground hover:text-primary transition-colors font-medium ${selectedTab === 'tickets' ? 'text-primary' : ''}`}
-              >
-                Билеты
-              </button>
-            </nav>
+                <Icon name="Shield" size={16} />
+                Админ
+              </a>
+            </div>
           </div>
         </div>
       </header>
@@ -414,6 +419,24 @@ export default function Index() {
           </TabsContent>
 
           <TabsContent value="stats" className="animate-fade-in">
+            <Card className="bg-card/50 backdrop-blur border-border">
+              <CardHeader>
+                <CardTitle className="text-2xl flex items-center gap-2">
+                  <Icon name="BarChart3" size={24} className="text-primary" />
+                  Общая статистика
+                </CardTitle>
+                <CardDescription>Выберите раздел статистики из меню выше</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="text-center py-12 text-muted-foreground">
+                  <Icon name="TrendingUp" size={48} className="mx-auto mb-4 opacity-50" />
+                  <p>Используйте меню "Статистика" для просмотра различных категорий</p>
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          <TabsContent value="bombers" className="animate-fade-in">
             <div className="grid gap-6 lg:grid-cols-2">
               <Card className="bg-card/50 backdrop-blur border-border">
                 <CardHeader>
@@ -615,6 +638,112 @@ export default function Index() {
                 </CardContent>
               </Card>
             </div>
+          </TabsContent>
+
+          <TabsContent value="snipers" className="animate-fade-in">
+            <Card className="bg-card/50 backdrop-blur border-border">
+              <CardHeader>
+                <CardTitle className="text-2xl flex items-center gap-2">
+                  <Icon name="Crosshair" size={24} className="text-primary" />
+                  Топ снайперов
+                </CardTitle>
+                <CardDescription>Лидеры по забитым голам</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <Table>
+                  <TableHeader>
+                    <TableRow className="hover:bg-transparent border-border">
+                      <TableHead className="w-12">#</TableHead>
+                      <TableHead>Игрок</TableHead>
+                      <TableHead className="text-center">№</TableHead>
+                      <TableHead>Клуб</TableHead>
+                      <TableHead className="text-center">И</TableHead>
+                      <TableHead className="text-center font-bold">Г</TableHead>
+                      <TableHead className="text-center">П</TableHead>
+                      <TableHead className="text-center">О</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {topSnipers.map((player, index) => (
+                      <TableRow key={player.id} className="hover:bg-muted/50 transition-colors border-border">
+                        <TableCell className="font-bold text-primary">{index + 1}</TableCell>
+                        <TableCell className="font-semibold">{player.name}</TableCell>
+                        <TableCell className="text-center text-muted-foreground">{player.number}</TableCell>
+                        <TableCell>
+                          <div className="flex items-center gap-2">
+                            <img 
+                              src={teamLogos[player.team]} 
+                              alt={`лого ${player.team}`}
+                              className="w-6 h-6 object-contain"
+                            />
+                            <span className="text-sm text-muted-foreground">{player.team}</span>
+                          </div>
+                        </TableCell>
+                        <TableCell className="text-center">{player.games}</TableCell>
+                        <TableCell className="text-center font-bold text-lg text-primary">{player.goals}</TableCell>
+                        <TableCell className="text-center text-secondary">{player.assists}</TableCell>
+                        <TableCell className="text-center">{player.points}</TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          <TabsContent value="goalies" className="animate-fade-in">
+            <Card className="bg-card/50 backdrop-blur border-border">
+              <CardHeader>
+                <CardTitle className="text-2xl flex items-center gap-2">
+                  <Icon name="Goal" size={24} className="text-secondary" />
+                  Топ вратарей
+                </CardTitle>
+                <CardDescription>Лучшие вратари по проценту отбитых бросков</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <Table>
+                  <TableHeader>
+                    <TableRow className="hover:bg-transparent border-border">
+                      <TableHead className="w-12">#</TableHead>
+                      <TableHead>Игрок</TableHead>
+                      <TableHead className="text-center">№</TableHead>
+                      <TableHead>Клуб</TableHead>
+                      <TableHead className="text-center">И</TableHead>
+                      <TableHead className="text-center">В</TableHead>
+                      <TableHead className="text-center">П</TableHead>
+                      <TableHead className="text-center font-bold">%ОБ</TableHead>
+                      <TableHead className="text-center">КН</TableHead>
+                      <TableHead className="text-center">И"0"</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {topGoalies.map((player, index) => (
+                      <TableRow key={player.id} className="hover:bg-muted/50 transition-colors border-border">
+                        <TableCell className="font-bold text-primary">{index + 1}</TableCell>
+                        <TableCell className="font-semibold">{player.name}</TableCell>
+                        <TableCell className="text-center text-muted-foreground">{player.number}</TableCell>
+                        <TableCell>
+                          <div className="flex items-center gap-2">
+                            <img 
+                              src={teamLogos[player.team]} 
+                              alt={`лого ${player.team}`}
+                              className="w-6 h-6 object-contain"
+                            />
+                            <span className="text-sm text-muted-foreground">{player.team}</span>
+                          </div>
+                        </TableCell>
+                        <TableCell className="text-center">{player.games}</TableCell>
+                        <TableCell className="text-center text-green-500">{player.wins}</TableCell>
+                        <TableCell className="text-center text-red-500">{player.losses}</TableCell>
+                        <TableCell className="text-center font-bold text-lg text-primary">{player.svPct?.toFixed(1)}%</TableCell>
+                        <TableCell className="text-center">{player.goalsAgainst}</TableCell>
+                        <TableCell className="text-center text-secondary">{player.shutouts}</TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </CardContent>
+            </Card>
           </TabsContent>
 
           <TabsContent value="calendar" className="animate-fade-in">
