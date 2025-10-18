@@ -8,6 +8,32 @@ import Icon from '@/components/ui/icon';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 
+const teamLogos: Record<string, string> = {
+  'Авангард': 'https://img.khl.ru/teams/ru/1288/34/80.png',
+  'Автомобилист': 'https://img.khl.ru/teams/ru/1288/190/80.png',
+  'Адмирал': 'https://img.khl.ru/teams/ru/1288/418/80.png',
+  'Ак Барс': 'https://img.khl.ru/teams/ru/1288/53/80.png',
+  'Амур': 'https://img.khl.ru/teams/ru/1369/54/80.png',
+  'Барыс': 'https://img.khl.ru/teams/ru/1288/198/80.png',
+  'Динамо-Минск': 'https://img.khl.ru/teams/ru/1288/207/80.png',
+  'Динамо Москва': 'https://img.khl.ru/teams/ru/1288/719/80.png',
+  'Драконы': 'https://img.khl.ru/teams/ru/1369/568/80.png',
+  'Йокерит': 'https://img.khl.ru/teams/ru/1097/450/80.png',
+  'Лада': 'https://img.khl.ru/teams/ru/1369/66/80.png',
+  'Локомотив': 'https://img.khl.ru/teams/ru/1288/1/80.png',
+  'Металлург': 'https://img.khl.ru/teams/ru/1288/37/80.png',
+  'Нефтехимик': 'https://img.khl.ru/teams/ru/1369/71/80.png',
+  'Салават Юлаев': 'https://img.khl.ru/teams/ru/1288/38/80.png',
+  'Северсталь': 'https://img.khl.ru/teams/ru/1288/56/80.png',
+  'Сибирь': 'https://img.khl.ru/teams/ru/1288/29/80.png',
+  'Сочи': 'https://img.khl.ru/teams/ru/1369/451/80.png',
+  'СКА': 'https://img.khl.ru/teams/ru/1369/24/80.png',
+  'Спартак': 'https://img.khl.ru/teams/ru/1288/7/80.png',
+  'Торпедо': 'https://img.khl.ru/teams/ru/1369/26/80.png',
+  'Трактор': 'https://img.khl.ru/teams/ru/1288/25/80.png',
+  'ЦСКА': 'https://img.khl.ru/teams/ru/1288/2/80.png'
+};
+
 const westernTeams = [
   { id: 1, name: 'СКА', games: 24, wins: 16, losses: 5, ot: 2, sob: 1, points: 51, goalsFor: 95, goalsAgainst: 52, conference: 'Запад' },
   { id: 2, name: 'ЦСКА', games: 24, wins: 15, losses: 6, ot: 2, sob: 1, points: 48, goalsFor: 89, goalsAgainst: 58, conference: 'Запад' },
@@ -216,15 +242,23 @@ export default function Index() {
                   </div>
                   <div className="flex items-center justify-center gap-4 mb-3">
                     <div className="flex flex-col items-center flex-1">
-                      <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center mb-2">
-                        <Icon name="Shield" size={24} className="text-primary" />
+                      <div className="w-16 h-16 flex items-center justify-center mb-2">
+                        <img 
+                          src={teamLogos[game.homeTeam]} 
+                          alt={`лого ${game.homeTeam}`}
+                          className="w-full h-full object-contain"
+                        />
                       </div>
                       <span className="font-bold text-center text-sm">{game.homeTeam}</span>
                     </div>
                     <div className="text-xl font-bold text-muted-foreground">VS</div>
                     <div className="flex flex-col items-center flex-1">
-                      <div className="w-12 h-12 rounded-full bg-secondary/20 flex items-center justify-center mb-2">
-                        <Icon name="Shield" size={24} className="text-secondary" />
+                      <div className="w-16 h-16 flex items-center justify-center mb-2">
+                        <img 
+                          src={teamLogos[game.awayTeam]} 
+                          alt={`лого ${game.awayTeam}`}
+                          className="w-full h-full object-contain"
+                        />
                       </div>
                       <span className="font-bold text-center text-sm">{game.awayTeam}</span>
                     </div>
