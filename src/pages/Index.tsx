@@ -6,69 +6,83 @@ import { Badge } from '@/components/ui/badge';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import Icon from '@/components/ui/icon';
 import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 
 const westernTeams = [
-  { id: 1, name: 'Северные Волки', games: 24, wins: 18, losses: 4, ot: 2, points: 38, goalsFor: 92, goalsAgainst: 54, conference: 'Запад' },
-  { id: 2, name: 'Стальные Акулы', games: 24, wins: 16, losses: 6, ot: 2, points: 34, goalsFor: 88, goalsAgainst: 61, conference: 'Запад' },
-  { id: 3, name: 'Молнии', games: 24, wins: 15, losses: 7, ot: 2, points: 32, goalsFor: 79, goalsAgainst: 65, conference: 'Запад' },
-  { id: 4, name: 'Красные Драконы', games: 24, wins: 14, losses: 8, ot: 2, points: 30, goalsFor: 76, goalsAgainst: 68, conference: 'Запад' },
-  { id: 5, name: 'Снежные Барсы', games: 24, wins: 12, losses: 9, ot: 3, points: 27, goalsFor: 71, goalsAgainst: 70, conference: 'Запад' },
-  { id: 6, name: 'Титаны', games: 24, wins: 11, losses: 10, ot: 3, points: 25, goalsFor: 68, goalsAgainst: 72, conference: 'Запад' },
-  { id: 7, name: 'Ледяные Медведи', games: 24, wins: 9, losses: 12, ot: 3, points: 21, goalsFor: 62, goalsAgainst: 78, conference: 'Запад' },
-  { id: 8, name: 'Рыцари', games: 24, wins: 5, losses: 17, ot: 2, points: 12, goalsFor: 51, goalsAgainst: 95, conference: 'Запад' },
+  { id: 1, name: 'Трактор', games: 24, wins: 15, losses: 6, ot: 2, sob: 1, points: 48, goalsFor: 92, goalsAgainst: 54, conference: 'Запад' },
+  { id: 2, name: 'Салават Юлаев', games: 24, wins: 14, losses: 5, ot: 3, sob: 2, points: 47, goalsFor: 88, goalsAgainst: 61, conference: 'Запад' },
+  { id: 3, name: 'Адмирал', games: 24, wins: 13, losses: 7, ot: 2, sob: 2, points: 43, goalsFor: 79, goalsAgainst: 65, conference: 'Запад' },
+  { id: 4, name: 'Металлург', games: 24, wins: 12, losses: 8, ot: 3, sob: 1, points: 40, goalsFor: 76, goalsAgainst: 68, conference: 'Запад' },
+  { id: 5, name: 'Авангард', games: 24, wins: 11, losses: 9, ot: 2, sob: 2, points: 37, goalsFor: 71, goalsAgainst: 70, conference: 'Запад' },
+  { id: 6, name: 'Автомобилист', games: 24, wins: 10, losses: 10, ot: 3, sob: 1, points: 34, goalsFor: 68, goalsAgainst: 72, conference: 'Запад' },
+  { id: 7, name: 'Ак Барс', games: 24, wins: 9, losses: 11, ot: 2, sob: 2, points: 31, goalsFor: 62, goalsAgainst: 78, conference: 'Запад' },
+  { id: 8, name: 'Сибирь', games: 24, wins: 8, losses: 12, ot: 3, sob: 1, points: 28, goalsFor: 51, goalsAgainst: 85, conference: 'Запад' },
+  { id: 9, name: 'Амур', games: 24, wins: 7, losses: 13, ot: 2, sob: 2, points: 25, goalsFor: 58, goalsAgainst: 88, conference: 'Запад' },
+  { id: 10, name: 'Лада', games: 24, wins: 6, losses: 14, ot: 3, sob: 1, points: 22, goalsFor: 54, goalsAgainst: 92, conference: 'Запад' },
+  { id: 11, name: 'Нефтехимик', games: 24, wins: 5, losses: 15, ot: 2, sob: 2, points: 19, goalsFor: 48, goalsAgainst: 95, conference: 'Запад' },
+  { id: 12, name: 'Сочи', games: 24, wins: 4, losses: 16, ot: 3, sob: 1, points: 16, goalsFor: 45, goalsAgainst: 98, conference: 'Запад' },
 ];
 
 const easternTeams = [
-  { id: 9, name: 'Огненные Лисы', games: 24, wins: 17, losses: 5, ot: 2, points: 36, goalsFor: 87, goalsAgainst: 58, conference: 'Восток' },
-  { id: 10, name: 'Полярные Совы', games: 24, wins: 15, losses: 7, ot: 2, points: 32, goalsFor: 81, goalsAgainst: 63, conference: 'Восток' },
-  { id: 11, name: 'Грозные Орлы', games: 24, wins: 14, losses: 8, ot: 2, points: 30, goalsFor: 74, goalsAgainst: 66, conference: 'Восток' },
-  { id: 12, name: 'Металлурги', games: 24, wins: 13, losses: 9, ot: 2, points: 28, goalsFor: 72, goalsAgainst: 68, conference: 'Восток' },
-  { id: 13, name: 'Черные Пантеры', games: 24, wins: 11, losses: 10, ot: 3, points: 25, goalsFor: 69, goalsAgainst: 71, conference: 'Восток' },
-  { id: 14, name: 'Ураганы', games: 24, wins: 10, losses: 11, ot: 3, points: 23, goalsFor: 65, goalsAgainst: 74, conference: 'Восток' },
-  { id: 15, name: 'Горные Львы', games: 24, wins: 7, losses: 14, ot: 3, points: 17, goalsFor: 58, goalsAgainst: 82, conference: 'Восток' },
-  { id: 16, name: 'Кометы', games: 24, wins: 4, losses: 18, ot: 2, points: 10, goalsFor: 48, goalsAgainst: 98, conference: 'Восток' },
+  { id: 13, name: 'СКА', games: 24, wins: 16, losses: 5, ot: 2, sob: 1, points: 51, goalsFor: 95, goalsAgainst: 52, conference: 'Восток' },
+  { id: 14, name: 'ЦСКА', games: 24, wins: 15, losses: 6, ot: 2, sob: 1, points: 48, goalsFor: 89, goalsAgainst: 58, conference: 'Восток' },
+  { id: 15, name: 'Динамо Москва', games: 24, wins: 14, losses: 7, ot: 2, sob: 1, points: 45, goalsFor: 81, goalsAgainst: 63, conference: 'Восток' },
+  { id: 16, name: 'Локомотив', games: 24, wins: 13, losses: 8, ot: 2, sob: 1, points: 42, goalsFor: 74, goalsAgainst: 66, conference: 'Восток' },
+  { id: 17, name: 'Спартак', games: 24, wins: 12, losses: 9, ot: 2, sob: 1, points: 39, goalsFor: 72, goalsAgainst: 68, conference: 'Восток' },
+  { id: 18, name: 'Динамо-Минск', games: 24, wins: 11, losses: 10, ot: 2, sob: 1, points: 36, goalsFor: 69, goalsAgainst: 71, conference: 'Восток' },
+  { id: 19, name: 'Торпедо', games: 24, wins: 10, losses: 11, ot: 2, sob: 1, points: 33, goalsFor: 65, goalsAgainst: 74, conference: 'Восток' },
+  { id: 20, name: 'Северсталь', games: 24, wins: 9, losses: 12, ot: 2, sob: 1, points: 30, goalsFor: 62, goalsAgainst: 78, conference: 'Восток' },
+  { id: 21, name: 'Драконы', games: 24, wins: 7, losses: 14, ot: 2, sob: 1, points: 24, goalsFor: 58, goalsAgainst: 82, conference: 'Восток' },
+  { id: 22, name: 'Барыс', games: 24, wins: 6, losses: 15, ot: 2, sob: 1, points: 21, goalsFor: 54, goalsAgainst: 88, conference: 'Восток' },
+  { id: 23, name: 'Йокерит', games: 24, wins: 5, losses: 16, ot: 2, sob: 1, points: 18, goalsFor: 51, goalsAgainst: 92, conference: 'Восток' },
 ];
 
 const allTeams = [...westernTeams, ...easternTeams];
 
+const upcomingGames = [
+  { id: 1, date: '2025-10-20', homeTeam: 'СКА', awayTeam: 'ЦСКА', time: '19:00', arena: 'Ледовый дворец' },
+  { id: 2, date: '2025-10-20', homeTeam: 'Трактор', awayTeam: 'Салават Юлаев', time: '19:30', arena: 'Арена Трактор' },
+  { id: 3, date: '2025-10-20', homeTeam: 'Динамо Москва', awayTeam: 'Локомотив', time: '20:00', arena: 'ВТБ Арена' },
+];
+
 const players = [
-  { id: 1, name: 'Иванов Алексей', team: 'Северные Волки', position: 'Нападающий', number: 91, games: 24, goals: 28, assists: 35, points: 63, pim: 12, captain: true },
-  { id: 2, name: 'Петров Дмитрий', team: 'Стальные Акулы', position: 'Нападающий', number: 87, games: 24, goals: 24, assists: 32, points: 56, pim: 18, captain: true },
-  { id: 3, name: 'Смирнов Сергей', team: 'Молнии', position: 'Нападающий', number: 19, games: 24, goals: 22, assists: 29, points: 51, pim: 8, captain: false },
-  { id: 4, name: 'Козлов Андрей', team: 'Северные Волки', position: 'Защитник', number: 44, games: 24, goals: 8, assists: 28, points: 36, pim: 24, captain: false },
-  { id: 5, name: 'Морозов Павел', team: 'Красные Драконы', position: 'Нападающий', number: 71, games: 24, goals: 19, assists: 23, points: 42, pim: 14, captain: true },
-  { id: 6, name: 'Федоров Максим', team: 'Снежные Барсы', position: 'Нападающий', number: 13, games: 24, goals: 17, assists: 21, points: 38, pim: 22, captain: true },
-  { id: 7, name: 'Соколов Артем', team: 'Молнии', position: 'Защитник', number: 27, games: 24, goals: 6, assists: 24, points: 30, pim: 30, captain: true },
-  { id: 8, name: 'Васильев Николай', team: 'Огненные Лисы', position: 'Нападающий', number: 88, games: 24, goals: 26, assists: 30, points: 56, pim: 10, captain: false },
-  { id: 9, name: 'Кузнецов Сергей', team: 'Полярные Совы', position: 'Защитник', number: 7, games: 24, goals: 10, assists: 26, points: 36, pim: 18, captain: false },
-  { id: 10, name: 'Лебедев Максим', team: 'Огненные Лисы', position: 'Нападающий', number: 17, games: 24, goals: 20, assists: 24, points: 44, pim: 6, captain: true },
+  { id: 1, name: 'Иванов Алексей', team: 'СКА', position: 'Нападающий', number: 91, games: 24, goals: 28, assists: 35, points: 63, pim: 12, captain: true },
+  { id: 2, name: 'Петров Дмитрий', team: 'ЦСКА', position: 'Нападающий', number: 87, games: 24, goals: 24, assists: 32, points: 56, pim: 18, captain: true },
+  { id: 3, name: 'Смирнов Сергей', team: 'Трактор', position: 'Нападающий', number: 19, games: 24, goals: 22, assists: 29, points: 51, pim: 8, captain: false },
+  { id: 4, name: 'Козлов Андрей', team: 'СКА', position: 'Защитник', number: 44, games: 24, goals: 8, assists: 28, points: 36, pim: 24, captain: false },
+  { id: 5, name: 'Морозов Павел', team: 'Металлург', position: 'Нападающий', number: 71, games: 24, goals: 19, assists: 23, points: 42, pim: 14, captain: true },
+  { id: 6, name: 'Федоров Максим', team: 'Авангард', position: 'Нападающий', number: 13, games: 24, goals: 17, assists: 21, points: 38, pim: 22, captain: true },
+  { id: 7, name: 'Соколов Артем', team: 'Динамо Москва', position: 'Защитник', number: 27, games: 24, goals: 6, assists: 24, points: 30, pim: 30, captain: true },
+  { id: 8, name: 'Васильев Николай', team: 'Локомотив', position: 'Нападающий', number: 88, games: 24, goals: 26, assists: 30, points: 56, pim: 10, captain: false },
+  { id: 9, name: 'Кузнецов Сергей', team: 'Спартак', position: 'Защитник', number: 7, games: 24, goals: 10, assists: 26, points: 36, pim: 18, captain: false },
+  { id: 10, name: 'Лебедев Максим', team: 'Салават Юлаев', position: 'Нападающий', number: 17, games: 24, goals: 20, assists: 24, points: 44, pim: 6, captain: true },
   
-  { id: 11, name: 'Новиков Иван', team: 'Стальные Акулы', position: 'Вратарь', number: 31, games: 22, wins: 16, losses: 6, svPct: 92.5, shutouts: 3, goalsAgainst: 48, captain: false },
-  { id: 12, name: 'Григорьев Александр', team: 'Северные Волки', position: 'Вратарь', number: 1, games: 22, wins: 17, losses: 5, svPct: 93.2, shutouts: 4, goalsAgainst: 45, captain: false },
-  { id: 13, name: 'Романов Дмитрий', team: 'Огненные Лисы', position: 'Вратарь', number: 30, games: 21, wins: 15, losses: 6, svPct: 91.8, shutouts: 2, goalsAgainst: 52, captain: false },
-  { id: 14, name: 'Павлов Андрей', team: 'Молнии', position: 'Вратарь', number: 35, games: 20, wins: 13, losses: 7, svPct: 90.9, shutouts: 2, goalsAgainst: 58, captain: false },
-  { id: 15, name: 'Белов Евгений', team: 'Полярные Совы', position: 'Вратарь', number: 29, games: 21, wins: 14, losses: 7, svPct: 91.5, shutouts: 1, goalsAgainst: 54, captain: false },
+  { id: 11, name: 'Новиков Иван', team: 'ЦСКА', position: 'Вратарь', number: 31, games: 22, wins: 16, losses: 6, svPct: 92.5, shutouts: 3, goalsAgainst: 48, captain: false },
+  { id: 12, name: 'Григорьев Александр', team: 'СКА', position: 'Вратарь', number: 1, games: 22, wins: 17, losses: 5, svPct: 93.2, shutouts: 4, goalsAgainst: 45, captain: false },
+  { id: 13, name: 'Романов Дмитрий', team: 'Трактор', position: 'Вратарь', number: 30, games: 21, wins: 15, losses: 6, svPct: 91.8, shutouts: 2, goalsAgainst: 52, captain: false },
+  { id: 14, name: 'Павлов Андрей', team: 'Динамо Москва', position: 'Вратарь', number: 35, games: 20, wins: 13, losses: 7, svPct: 90.9, shutouts: 2, goalsAgainst: 58, captain: false },
+  { id: 15, name: 'Белов Евгений', team: 'Локомотив', position: 'Вратарь', number: 29, games: 21, wins: 14, losses: 7, svPct: 91.5, shutouts: 1, goalsAgainst: 54, captain: false },
 ];
 
 const games = [
-  { id: 1, date: '2025-10-20', homeTeam: 'Северные Волки', awayTeam: 'Стальные Акулы', homeScore: null, awayScore: null, time: '19:00' },
-  { id: 2, date: '2025-10-20', homeTeam: 'Молнии', awayTeam: 'Красные Драконы', homeScore: null, awayScore: null, time: '19:30' },
-  { id: 3, date: '2025-10-20', homeTeam: 'Огненные Лисы', awayTeam: 'Полярные Совы', homeScore: null, awayScore: null, time: '20:00' },
-  { id: 4, date: '2025-10-18', homeTeam: 'Северные Волки', awayTeam: 'Рыцари', homeScore: 5, awayScore: 2, time: '19:00' },
-  { id: 5, date: '2025-10-18', homeTeam: 'Титаны', awayTeam: 'Молнии', homeScore: 3, awayScore: 4, time: '18:30' },
-  { id: 6, date: '2025-10-17', homeTeam: 'Стальные Акулы', awayTeam: 'Снежные Барсы', homeScore: 4, awayScore: 3, time: '19:00' },
+  { id: 1, date: '2025-10-20', homeTeam: 'СКА', awayTeam: 'ЦСКА', homeScore: null, awayScore: null, time: '19:00' },
+  { id: 2, date: '2025-10-20', homeTeam: 'Трактор', awayTeam: 'Салават Юлаев', homeScore: null, awayScore: null, time: '19:30' },
+  { id: 3, date: '2025-10-20', homeTeam: 'Динамо Москва', awayTeam: 'Локомотив', homeScore: null, awayScore: null, time: '20:00' },
+  { id: 4, date: '2025-10-18', homeTeam: 'СКА', awayTeam: 'Торпедо', homeScore: 5, awayScore: 2, time: '19:00' },
+  { id: 5, date: '2025-10-18', homeTeam: 'Автомобилист', awayTeam: 'Трактор', homeScore: 3, awayScore: 4, time: '18:30' },
+  { id: 6, date: '2025-10-17', homeTeam: 'ЦСКА', awayTeam: 'Спартак', homeScore: 4, awayScore: 3, time: '19:00' },
 ];
 
 const playoffBracket = [
   { round: '1/8 финала', matches: [
-    { team1: 'Северные Волки', seed1: 1, team2: 'Кометы', seed2: 16, score1: null, score2: null },
-    { team1: 'Огненные Лисы', seed1: 2, team2: 'Рыцари', seed2: 15, score1: null, score2: null },
-    { team1: 'Стальные Акулы', seed1: 3, team2: 'Горные Львы', seed2: 14, score1: null, score2: null },
-    { team1: 'Полярные Совы', seed1: 4, team2: 'Ледяные Медведи', seed2: 13, score1: null, score2: null },
-    { team1: 'Молнии', seed1: 5, team2: 'Ураганы', seed2: 12, score1: null, score2: null },
-    { team1: 'Грозные Орлы', seed1: 6, team2: 'Титаны', seed2: 11, score1: null, score2: null },
-    { team1: 'Красные Драконы', seed1: 7, team2: 'Черные Пантеры', seed2: 10, score1: null, score2: null },
-    { team1: 'Металлурги', seed1: 8, team2: 'Снежные Барсы', seed2: 9, score1: null, score2: null },
+    { team1: 'СКА', seed1: 1, team2: 'Йокерит', seed2: 16, score1: null, score2: null },
+    { team1: 'Трактор', seed1: 2, team2: 'Сочи', seed2: 15, score1: null, score2: null },
+    { team1: 'ЦСКА', seed1: 3, team2: 'Барыс', seed2: 14, score1: null, score2: null },
+    { team1: 'Салават Юлаев', seed1: 4, team2: 'Драконы', seed2: 13, score1: null, score2: null },
+    { team1: 'Динамо Москва', seed1: 5, team2: 'Северсталь', seed2: 12, score1: null, score2: null },
+    { team1: 'Адмирал', seed1: 6, team2: 'Торпедо', seed2: 11, score1: null, score2: null },
+    { team1: 'Металлург', seed1: 7, team2: 'Спартак', seed2: 10, score1: null, score2: null },
+    { team1: 'Авангард', seed1: 8, team2: 'Локомотив', seed2: 9, score1: null, score2: null },
   ]},
   { round: '1/4 финала', matches: [
     { team1: 'TBD', seed1: null, team2: 'TBD', seed2: null, score1: null, score2: null },
@@ -85,11 +99,21 @@ const playoffBracket = [
   ]},
 ];
 
+const ticketGames = [
+  { id: 1, date: '2025-10-20', homeTeam: 'СКА', awayTeam: 'ЦСКА', time: '19:00', arena: 'Ледовый дворец', prices: [1500, 2500, 3500, 5000] },
+  { id: 2, date: '2025-10-20', homeTeam: 'Трактор', awayTeam: 'Салават Юлаев', time: '19:30', arena: 'Арена Трактор', prices: [1200, 2000, 3000, 4500] },
+  { id: 3, date: '2025-10-21', homeTeam: 'Динамо Москва', awayTeam: 'Локомотив', time: '20:00', arena: 'ВТБ Арена', prices: [1800, 2800, 4000, 6000] },
+  { id: 4, date: '2025-10-22', homeTeam: 'ЦСКА', awayTeam: 'Спартак', time: '19:00', arena: 'ЦСКА Арена', prices: [2000, 3000, 4500, 7000] },
+  { id: 5, date: '2025-10-23', homeTeam: 'Металлург', awayTeam: 'Авангард', time: '18:30', arena: 'Арена Металлург', prices: [1000, 1800, 2500, 3500] },
+];
+
 export default function Index() {
   const [selectedTab, setSelectedTab] = useState('standings');
   const [playerFilter, setPlayerFilter] = useState('all');
   const [positionFilter, setPositionFilter] = useState('all');
   const [sortBy, setSortBy] = useState('points');
+  const [selectedGame, setSelectedGame] = useState<number | null>(null);
+  const [selectedSector, setSelectedSector] = useState<number>(0);
 
   const filteredPlayers = players
     .filter(p => playerFilter === 'all' || p.team === playerFilter)
@@ -120,8 +144,9 @@ export default function Index() {
               <TableHead>Команда</TableHead>
               <TableHead className="text-center">И</TableHead>
               <TableHead className="text-center">В</TableHead>
+              <TableHead className="text-center">ВБ</TableHead>
+              <TableHead className="text-center">ПБ</TableHead>
               <TableHead className="text-center">П</TableHead>
-              <TableHead className="text-center">ОТ</TableHead>
               <TableHead className="text-center font-bold">О</TableHead>
               <TableHead className="text-center">Ш</TableHead>
               <TableHead className="text-center">ПШ</TableHead>
@@ -139,8 +164,9 @@ export default function Index() {
                 </TableCell>
                 <TableCell className="text-center">{team.games}</TableCell>
                 <TableCell className="text-center text-green-500">{team.wins}</TableCell>
+                <TableCell className="text-center text-emerald-400">{team.ot}</TableCell>
+                <TableCell className="text-center text-orange-400">{team.sob}</TableCell>
                 <TableCell className="text-center text-red-500">{team.losses}</TableCell>
-                <TableCell className="text-center text-yellow-500">{team.ot}</TableCell>
                 <TableCell className="text-center font-bold text-lg text-primary">{team.points}</TableCell>
                 <TableCell className="text-center">{team.goalsFor}</TableCell>
                 <TableCell className="text-center">{team.goalsAgainst}</TableCell>
@@ -156,41 +182,93 @@ export default function Index() {
     <div className="min-h-screen bg-background">
       <header className="border-b border-border bg-card/50 backdrop-blur-sm sticky top-0 z-50">
         <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center gap-4">
-            <div className="flex items-center gap-2">
-              <Icon name="Trophy" size={32} className="text-primary" />
-              <h1 className="text-3xl font-bold text-foreground">Хоккейная Лига</h1>
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <Icon name="Trophy" size={36} className="text-primary" />
+              <div>
+                <h1 className="text-3xl font-bold text-foreground">VPHL</h1>
+                <p className="text-sm text-muted-foreground">Virtual Premier Hockey League</p>
+              </div>
             </div>
           </div>
         </div>
       </header>
 
+      <div className="bg-gradient-to-r from-primary/10 to-secondary/10 border-y border-border">
+        <div className="container mx-auto px-4 py-6">
+          <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
+            <Icon name="Clock" size={20} className="text-primary" />
+            Ближайшие матчи
+          </h2>
+          <div className="grid md:grid-cols-3 gap-4">
+            {upcomingGames.map((game) => (
+              <Card key={game.id} className="bg-card/80 backdrop-blur border-border hover:bg-card transition-all">
+                <CardContent className="p-4">
+                  <div className="flex items-center justify-between mb-3">
+                    <Badge variant="outline" className="text-xs">
+                      {new Date(game.date).toLocaleDateString('ru-RU', { day: '2-digit', month: 'long' })}
+                    </Badge>
+                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                      <Icon name="Clock" size={14} />
+                      {game.time}
+                    </div>
+                  </div>
+                  <div className="flex items-center justify-center gap-4 mb-3">
+                    <div className="flex flex-col items-center flex-1">
+                      <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center mb-2">
+                        <Icon name="Shield" size={24} className="text-primary" />
+                      </div>
+                      <span className="font-bold text-center text-sm">{game.homeTeam}</span>
+                    </div>
+                    <div className="text-xl font-bold text-muted-foreground">VS</div>
+                    <div className="flex flex-col items-center flex-1">
+                      <div className="w-12 h-12 rounded-full bg-secondary/20 flex items-center justify-center mb-2">
+                        <Icon name="Shield" size={24} className="text-secondary" />
+                      </div>
+                      <span className="font-bold text-center text-sm">{game.awayTeam}</span>
+                    </div>
+                  </div>
+                  <div className="text-xs text-center text-muted-foreground flex items-center justify-center gap-1">
+                    <Icon name="MapPin" size={12} />
+                    {game.arena}
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </div>
+
       <main className="container mx-auto px-4 py-8">
         <Tabs value={selectedTab} onValueChange={setSelectedTab} className="w-full">
-          <TabsList className="grid w-full grid-cols-6 lg:w-auto lg:inline-grid mb-8 bg-muted/50">
+          <TabsList className="grid w-full grid-cols-7 lg:w-auto lg:inline-grid mb-8 bg-muted/50">
             <TabsTrigger value="standings" className="gap-2">
               <Icon name="Table" size={16} />
-              Таблица
+              <span className="hidden sm:inline">Таблица</span>
             </TabsTrigger>
             <TabsTrigger value="playoffs" className="gap-2">
               <Icon name="Award" size={16} />
-              Плей-офф
+              <span className="hidden sm:inline">Плей-офф</span>
             </TabsTrigger>
             <TabsTrigger value="stats" className="gap-2">
               <Icon name="BarChart3" size={16} />
-              Статистика
+              <span className="hidden sm:inline">Статистика</span>
             </TabsTrigger>
             <TabsTrigger value="calendar" className="gap-2">
               <Icon name="Calendar" size={16} />
-              Календарь
+              <span className="hidden sm:inline">Календарь</span>
             </TabsTrigger>
             <TabsTrigger value="players" className="gap-2">
               <Icon name="Users" size={16} />
-              Игроки
+              <span className="hidden sm:inline">Игроки</span>
+            </TabsTrigger>
+            <TabsTrigger value="tickets" className="gap-2">
+              <Icon name="Ticket" size={16} />
+              <span className="hidden sm:inline">Билеты</span>
             </TabsTrigger>
             <TabsTrigger value="rules" className="gap-2">
               <Icon name="FileText" size={16} />
-              Регламент
+              <span className="hidden sm:inline">Регламент</span>
             </TabsTrigger>
           </TabsList>
 
@@ -233,17 +311,17 @@ export default function Index() {
                             <div className="flex items-center justify-between p-3 bg-card rounded-lg border border-border">
                               <div className="flex items-center gap-2">
                                 {match.seed1 && <Badge variant="outline" className="text-xs">{match.seed1}</Badge>}
-                                <span className="font-semibold">{match.team1}</span>
+                                <span className="font-semibold text-sm">{match.team1}</span>
                               </div>
                               {match.score1 !== null && (
                                 <Badge variant="outline" className="text-lg px-3">{match.score1}</Badge>
                               )}
                             </div>
-                            <div className="text-center text-muted-foreground text-sm">VS</div>
+                            <div className="text-center text-muted-foreground text-xs">VS</div>
                             <div className="flex items-center justify-between p-3 bg-card rounded-lg border border-border">
                               <div className="flex items-center gap-2">
                                 {match.seed2 && <Badge variant="outline" className="text-xs">{match.seed2}</Badge>}
-                                <span className="font-semibold">{match.team2}</span>
+                                <span className="font-semibold text-sm">{match.team2}</span>
                               </div>
                               {match.score2 !== null && (
                                 <Badge variant="outline" className="text-lg px-3">{match.score2}</Badge>
@@ -573,6 +651,104 @@ export default function Index() {
             </Card>
           </TabsContent>
 
+          <TabsContent value="tickets" className="animate-fade-in">
+            <div className="grid gap-6">
+              <Card className="bg-card/50 backdrop-blur border-border">
+                <CardHeader>
+                  <CardTitle className="text-2xl flex items-center gap-2">
+                    <Icon name="Ticket" size={24} className="text-primary" />
+                    Купить билеты
+                  </CardTitle>
+                  <CardDescription>Выберите матч и приобретите билеты онлайн</CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-6">
+                  <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    {ticketGames.map((game) => (
+                      <Card 
+                        key={game.id} 
+                        className={`cursor-pointer transition-all ${selectedGame === game.id ? 'bg-primary/10 border-primary' : 'bg-muted/30 border-border hover:bg-muted/50'}`}
+                        onClick={() => setSelectedGame(game.id)}
+                      >
+                        <CardContent className="p-4">
+                          <div className="flex items-center justify-between mb-3">
+                            <Badge variant="outline" className="text-xs">
+                              {new Date(game.date).toLocaleDateString('ru-RU', { day: '2-digit', month: 'long' })}
+                            </Badge>
+                            <div className="flex items-center gap-1 text-sm text-muted-foreground">
+                              <Icon name="Clock" size={14} />
+                              {game.time}
+                            </div>
+                          </div>
+                          <div className="flex items-center justify-between gap-2 mb-3">
+                            <span className="font-bold text-sm">{game.homeTeam}</span>
+                            <span className="text-muted-foreground">-</span>
+                            <span className="font-bold text-sm">{game.awayTeam}</span>
+                          </div>
+                          <div className="text-xs text-muted-foreground flex items-center gap-1">
+                            <Icon name="MapPin" size={12} />
+                            {game.arena}
+                          </div>
+                          <div className="mt-3 pt-3 border-t border-border">
+                            <div className="text-xs text-muted-foreground mb-1">От</div>
+                            <div className="text-lg font-bold text-primary">{game.prices[0]} ₽</div>
+                          </div>
+                        </CardContent>
+                      </Card>
+                    ))}
+                  </div>
+
+                  {selectedGame && (
+                    <Card className="bg-gradient-to-br from-primary/5 to-secondary/5 border-primary/50 animate-scale-in">
+                      <CardHeader>
+                        <CardTitle className="text-xl">Выбор сектора</CardTitle>
+                        <CardDescription>
+                          {ticketGames.find(g => g.id === selectedGame)?.homeTeam} - {ticketGames.find(g => g.id === selectedGame)?.awayTeam}
+                        </CardDescription>
+                      </CardHeader>
+                      <CardContent className="space-y-4">
+                        <div className="grid md:grid-cols-4 gap-3">
+                          {ticketGames.find(g => g.id === selectedGame)?.prices.map((price, index) => (
+                            <Card 
+                              key={index}
+                              className={`cursor-pointer transition-all ${selectedSector === index ? 'bg-primary border-primary' : 'bg-muted/50 border-border hover:bg-muted'}`}
+                              onClick={() => setSelectedSector(index)}
+                            >
+                              <CardContent className="p-4 text-center">
+                                <div className="text-sm text-muted-foreground mb-1">Сектор {['A', 'B', 'C', 'VIP'][index]}</div>
+                                <div className="text-2xl font-bold">{price} ₽</div>
+                                <Badge variant="outline" className="mt-2 text-xs">
+                                  {['Стандарт', 'Улучшенный', 'Премиум', 'VIP-ложа'][index]}
+                                </Badge>
+                              </CardContent>
+                            </Card>
+                          ))}
+                        </div>
+
+                        <div className="space-y-3 pt-4 border-t border-border">
+                          <div className="grid md:grid-cols-2 gap-3">
+                            <div>
+                              <label className="text-sm text-muted-foreground mb-1 block">Количество билетов</label>
+                              <Input type="number" min="1" max="10" defaultValue="1" className="bg-muted border-border" />
+                            </div>
+                            <div>
+                              <label className="text-sm text-muted-foreground mb-1 block">Email для билетов</label>
+                              <Input type="email" placeholder="your@email.com" className="bg-muted border-border" />
+                            </div>
+                          </div>
+                          
+                          <Button className="w-full bg-primary hover:bg-primary/90 text-lg py-6">
+                            <Icon name="ShoppingCart" size={20} className="mr-2" />
+                            Купить билеты
+                          </Button>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  )}
+                </CardContent>
+              </Card>
+            </div>
+          </TabsContent>
+
           <TabsContent value="rules" className="animate-fade-in">
             <Card className="bg-card/50 backdrop-blur border-border">
               <CardHeader>
@@ -580,7 +756,7 @@ export default function Index() {
                   <Icon name="FileText" size={24} className="text-primary" />
                   Регламент лиги
                 </CardTitle>
-                <CardDescription>Правила и положения турнира</CardDescription>
+                <CardDescription>Правила и положения турнира VPHL</CardDescription>
               </CardHeader>
               <CardContent className="prose prose-invert max-w-none">
                 <div className="space-y-6">
@@ -590,9 +766,9 @@ export default function Index() {
                       1. Формат турнира
                     </h3>
                     <p className="text-muted-foreground leading-relaxed">
-                      Лига состоит из 16 команд, разделенных на две конференции (Западная и Восточная) по 8 команд в каждой. 
-                      Регулярный сезон проводится по системе "каждый с каждым" в 3 круга. 
-                      По итогам регулярного чемпионата все 16 команд выходят в плей-офф.
+                      VPHL состоит из 23 команд, разделенных на две конференции (Западная - 12 команд, Восточная - 11 команд). 
+                      Регулярный сезон проводится по системе "каждый с каждым" в 2 круга. 
+                      По итогам регулярного чемпионата 16 лучших команд выходят в плей-офф.
                     </p>
                   </div>
 
@@ -604,19 +780,19 @@ export default function Index() {
                     <ul className="space-y-2 text-muted-foreground">
                       <li className="flex items-start gap-2">
                         <Icon name="CheckCircle2" size={16} className="text-green-500 mt-1" />
-                        <span>Победа в основное время - 3 очка</span>
+                        <span>Победа в основное время (В) - 3 очка</span>
                       </li>
                       <li className="flex items-start gap-2">
-                        <Icon name="Clock" size={16} className="text-yellow-500 mt-1" />
-                        <span>Победа в овертайме/буллитах - 2 очка</span>
+                        <Icon name="Clock" size={16} className="text-emerald-400 mt-1" />
+                        <span>Победа в овертайме/буллитах (ВБ) - 2 очка</span>
                       </li>
                       <li className="flex items-start gap-2">
-                        <Icon name="MinusCircle" size={16} className="text-orange-500 mt-1" />
-                        <span>Поражение в овертайме/буллитах - 1 очко</span>
+                        <Icon name="MinusCircle" size={16} className="text-orange-400 mt-1" />
+                        <span>Поражение в овертайме/буллитах (ПБ) - 1 очко</span>
                       </li>
                       <li className="flex items-start gap-2">
                         <Icon name="XCircle" size={16} className="text-red-500 mt-1" />
-                        <span>Поражение в основное время - 0 очков</span>
+                        <span>Поражение в основное время (П) - 0 очков</span>
                       </li>
                     </ul>
                   </div>
@@ -638,9 +814,9 @@ export default function Index() {
                       4. Плей-офф
                     </h3>
                     <p className="text-muted-foreground leading-relaxed">
-                      В плей-офф выходят все 16 команд. Сетка составляется по принципу: 1 место против 16, 2 против 15 и т.д.
+                      В плей-офф выходят 16 лучших команд. Сетка составляется по принципу: 1 место против 16, 2 против 15 и т.д.
                       Все серии проводятся до 4 побед. При равенстве счета в матче плей-офф 
-                      назначается овертайм без ограничения времени до первой заброшенной шайбы.
+                      назначается овертайм без ограничения времени до первой заброшенной шайбы (внезапная смерть).
                     </p>
                   </div>
                 </div>
@@ -655,7 +831,7 @@ export default function Index() {
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <div className="flex items-center gap-2">
               <Icon name="Trophy" size={24} className="text-primary" />
-              <span className="font-semibold">Хоккейная Лига 2025</span>
+              <span className="font-semibold">VPHL 2025</span>
             </div>
             <div className="flex gap-6 text-muted-foreground text-sm">
               <a href="#" className="hover:text-primary transition-colors">Контакты</a>
