@@ -17,24 +17,24 @@ const westernTeams = [
   { id: 6, name: 'Динамо-Минск', games: 24, wins: 11, losses: 10, ot: 2, sob: 1, points: 36, goalsFor: 69, goalsAgainst: 71, conference: 'Запад' },
   { id: 7, name: 'Торпедо', games: 24, wins: 10, losses: 11, ot: 2, sob: 1, points: 33, goalsFor: 65, goalsAgainst: 74, conference: 'Запад' },
   { id: 8, name: 'Северсталь', games: 24, wins: 9, losses: 12, ot: 2, sob: 1, points: 30, goalsFor: 62, goalsAgainst: 78, conference: 'Запад' },
-  { id: 9, name: 'Драконы', games: 24, wins: 7, losses: 14, ot: 2, sob: 1, points: 24, goalsFor: 58, goalsAgainst: 82, conference: 'Запад' },
-  { id: 10, name: 'Барыс', games: 24, wins: 6, losses: 15, ot: 2, sob: 1, points: 21, goalsFor: 54, goalsAgainst: 88, conference: 'Запад' },
-  { id: 11, name: 'Йокерит', games: 24, wins: 5, losses: 16, ot: 2, sob: 1, points: 18, goalsFor: 51, goalsAgainst: 92, conference: 'Запад' },
+  { id: 9, name: 'Сочи', games: 24, wins: 7, losses: 14, ot: 2, sob: 1, points: 24, goalsFor: 58, goalsAgainst: 82, conference: 'Запад' },
+  { id: 10, name: 'Драконы', games: 24, wins: 6, losses: 15, ot: 2, sob: 1, points: 21, goalsFor: 54, goalsAgainst: 88, conference: 'Запад' },
+  { id: 11, name: 'Барыс', games: 24, wins: 5, losses: 16, ot: 2, sob: 1, points: 18, goalsFor: 51, goalsAgainst: 92, conference: 'Запад' },
+  { id: 12, name: 'Йокерит', games: 24, wins: 4, losses: 16, ot: 3, sob: 1, points: 16, goalsFor: 45, goalsAgainst: 98, conference: 'Запад' },
 ];
 
 const easternTeams = [
-  { id: 12, name: 'Трактор', games: 24, wins: 15, losses: 6, ot: 2, sob: 1, points: 48, goalsFor: 92, goalsAgainst: 54, conference: 'Восток' },
-  { id: 13, name: 'Салават Юлаев', games: 24, wins: 14, losses: 5, ot: 3, sob: 2, points: 47, goalsFor: 88, goalsAgainst: 61, conference: 'Восток' },
-  { id: 14, name: 'Адмирал', games: 24, wins: 13, losses: 7, ot: 2, sob: 2, points: 43, goalsFor: 79, goalsAgainst: 65, conference: 'Восток' },
-  { id: 15, name: 'Металлург', games: 24, wins: 12, losses: 8, ot: 3, sob: 1, points: 40, goalsFor: 76, goalsAgainst: 68, conference: 'Восток' },
-  { id: 16, name: 'Авангард', games: 24, wins: 11, losses: 9, ot: 2, sob: 2, points: 37, goalsFor: 71, goalsAgainst: 70, conference: 'Восток' },
-  { id: 17, name: 'Автомобилист', games: 24, wins: 10, losses: 10, ot: 3, sob: 1, points: 34, goalsFor: 68, goalsAgainst: 72, conference: 'Восток' },
-  { id: 18, name: 'Ак Барс', games: 24, wins: 9, losses: 11, ot: 2, sob: 2, points: 31, goalsFor: 62, goalsAgainst: 78, conference: 'Восток' },
-  { id: 19, name: 'Сибирь', games: 24, wins: 8, losses: 12, ot: 3, sob: 1, points: 28, goalsFor: 51, goalsAgainst: 85, conference: 'Восток' },
-  { id: 20, name: 'Амур', games: 24, wins: 7, losses: 13, ot: 2, sob: 2, points: 25, goalsFor: 58, goalsAgainst: 88, conference: 'Восток' },
-  { id: 21, name: 'Лада', games: 24, wins: 6, losses: 14, ot: 3, sob: 1, points: 22, goalsFor: 54, goalsAgainst: 92, conference: 'Восток' },
-  { id: 22, name: 'Нефтехимик', games: 24, wins: 5, losses: 15, ot: 2, sob: 2, points: 19, goalsFor: 48, goalsAgainst: 95, conference: 'Восток' },
-  { id: 23, name: 'Сочи', games: 24, wins: 4, losses: 16, ot: 3, sob: 1, points: 16, goalsFor: 45, goalsAgainst: 98, conference: 'Восток' },
+  { id: 13, name: 'Трактор', games: 24, wins: 15, losses: 6, ot: 2, sob: 1, points: 48, goalsFor: 92, goalsAgainst: 54, conference: 'Восток' },
+  { id: 14, name: 'Салават Юлаев', games: 24, wins: 14, losses: 5, ot: 3, sob: 2, points: 47, goalsFor: 88, goalsAgainst: 61, conference: 'Восток' },
+  { id: 15, name: 'Адмирал', games: 24, wins: 13, losses: 7, ot: 2, sob: 2, points: 43, goalsFor: 79, goalsAgainst: 65, conference: 'Восток' },
+  { id: 16, name: 'Металлург', games: 24, wins: 12, losses: 8, ot: 3, sob: 1, points: 40, goalsFor: 76, goalsAgainst: 68, conference: 'Восток' },
+  { id: 17, name: 'Авангард', games: 24, wins: 11, losses: 9, ot: 2, sob: 2, points: 37, goalsFor: 71, goalsAgainst: 70, conference: 'Восток' },
+  { id: 18, name: 'Автомобилист', games: 24, wins: 10, losses: 10, ot: 3, sob: 1, points: 34, goalsFor: 68, goalsAgainst: 72, conference: 'Восток' },
+  { id: 19, name: 'Ак Барс', games: 24, wins: 9, losses: 11, ot: 2, sob: 2, points: 31, goalsFor: 62, goalsAgainst: 78, conference: 'Восток' },
+  { id: 20, name: 'Сибирь', games: 24, wins: 8, losses: 12, ot: 3, sob: 1, points: 28, goalsFor: 51, goalsAgainst: 85, conference: 'Восток' },
+  { id: 21, name: 'Амур', games: 24, wins: 7, losses: 13, ot: 2, sob: 2, points: 25, goalsFor: 58, goalsAgainst: 88, conference: 'Восток' },
+  { id: 22, name: 'Лада', games: 24, wins: 6, losses: 14, ot: 3, sob: 1, points: 22, goalsFor: 54, goalsAgainst: 92, conference: 'Восток' },
+  { id: 23, name: 'Нефтехимик', games: 24, wins: 5, losses: 15, ot: 2, sob: 2, points: 19, goalsFor: 48, goalsAgainst: 95, conference: 'Восток' },
 ];
 
 const allTeams = [...westernTeams, ...easternTeams];
@@ -109,6 +109,7 @@ const ticketGames = [
 
 export default function Index() {
   const [selectedTab, setSelectedTab] = useState('standings');
+  const [selectedConference, setSelectedConference] = useState<'west' | 'east'>('west');
   const [playerFilter, setPlayerFilter] = useState('all');
   const [positionFilter, setPositionFilter] = useState('all');
   const [sortBy, setSortBy] = useState('points');
@@ -281,9 +282,27 @@ export default function Index() {
                 </CardTitle>
                 <CardDescription>Регулярный сезон 2025</CardDescription>
               </CardHeader>
-              <CardContent className="space-y-8">
-                {renderTeamTable(westernTeams, 'Западная Конференция')}
-                {renderTeamTable(easternTeams, 'Восточная Конференция')}
+              <CardContent className="space-y-6">
+                <div className="flex gap-2 justify-center">
+                  <Button 
+                    variant={selectedConference === 'west' ? 'default' : 'outline'}
+                    onClick={() => setSelectedConference('west')}
+                    className="gap-2"
+                  >
+                    <Icon name="MapPin" size={16} />
+                    Западная конференция
+                  </Button>
+                  <Button 
+                    variant={selectedConference === 'east' ? 'default' : 'outline'}
+                    onClick={() => setSelectedConference('east')}
+                    className="gap-2"
+                  >
+                    <Icon name="MapPin" size={16} />
+                    Восточная конференция
+                  </Button>
+                </div>
+                {selectedConference === 'west' && renderTeamTable(westernTeams, 'Западная Конференция')}
+                {selectedConference === 'east' && renderTeamTable(easternTeams, 'Восточная Конференция')}
               </CardContent>
             </Card>
           </TabsContent>
