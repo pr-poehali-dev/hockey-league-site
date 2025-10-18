@@ -184,8 +184,13 @@ export default function Index() {
               <TableRow key={team.id} className="hover:bg-muted/50 transition-colors border-border">
                 <TableCell className="font-medium">{index + 1}</TableCell>
                 <TableCell className="font-semibold">
-                  <div className="flex items-center gap-2">
-                    {team.name}
+                  <div className="flex items-center gap-3">
+                    <img 
+                      src={teamLogos[team.name]} 
+                      alt={`лого ${team.name}`}
+                      className="w-8 h-8 object-contain"
+                    />
+                    <span>{team.name}</span>
                     {index < 8 && <Badge variant="default" className="bg-primary/20 text-primary">Плей-офф</Badge>}
                   </div>
                 </TableCell>
@@ -364,6 +369,13 @@ export default function Index() {
                             <div className="flex items-center justify-between p-3 bg-card rounded-lg border border-border">
                               <div className="flex items-center gap-2">
                                 {match.seed1 && <Badge variant="outline" className="text-xs">{match.seed1}</Badge>}
+                                {match.team1 !== 'TBD' && (
+                                  <img 
+                                    src={teamLogos[match.team1]} 
+                                    alt={`лого ${match.team1}`}
+                                    className="w-6 h-6 object-contain"
+                                  />
+                                )}
                                 <span className="font-semibold text-sm">{match.team1}</span>
                               </div>
                               {match.score1 !== null && (
@@ -374,6 +386,13 @@ export default function Index() {
                             <div className="flex items-center justify-between p-3 bg-card rounded-lg border border-border">
                               <div className="flex items-center gap-2">
                                 {match.seed2 && <Badge variant="outline" className="text-xs">{match.seed2}</Badge>}
+                                {match.team2 !== 'TBD' && (
+                                  <img 
+                                    src={teamLogos[match.team2]} 
+                                    alt={`лого ${match.team2}`}
+                                    className="w-6 h-6 object-contain"
+                                  />
+                                )}
                                 <span className="font-semibold text-sm">{match.team2}</span>
                               </div>
                               {match.score2 !== null && (
@@ -420,7 +439,16 @@ export default function Index() {
                           <TableCell className="font-bold text-primary">{index + 1}</TableCell>
                           <TableCell className="font-semibold">{player.name}</TableCell>
                           <TableCell className="text-center text-muted-foreground">{player.number}</TableCell>
-                          <TableCell className="text-sm text-muted-foreground">{player.team}</TableCell>
+                          <TableCell>
+                            <div className="flex items-center gap-2">
+                              <img 
+                                src={teamLogos[player.team]} 
+                                alt={`лого ${player.team}`}
+                                className="w-6 h-6 object-contain"
+                              />
+                              <span className="text-sm text-muted-foreground">{player.team}</span>
+                            </div>
+                          </TableCell>
                           <TableCell className="text-center">{player.games}</TableCell>
                           <TableCell className="text-center text-primary">{player.goals}</TableCell>
                           <TableCell className="text-center text-secondary">{player.assists}</TableCell>
@@ -460,7 +488,16 @@ export default function Index() {
                           <TableCell className="font-bold text-primary">{index + 1}</TableCell>
                           <TableCell className="font-semibold">{player.name}</TableCell>
                           <TableCell className="text-center text-muted-foreground">{player.number}</TableCell>
-                          <TableCell className="text-sm text-muted-foreground">{player.team}</TableCell>
+                          <TableCell>
+                            <div className="flex items-center gap-2">
+                              <img 
+                                src={teamLogos[player.team]} 
+                                alt={`лого ${player.team}`}
+                                className="w-6 h-6 object-contain"
+                              />
+                              <span className="text-sm text-muted-foreground">{player.team}</span>
+                            </div>
+                          </TableCell>
                           <TableCell className="text-center">{player.games}</TableCell>
                           <TableCell className="text-center text-primary">{player.goals}</TableCell>
                           <TableCell className="text-center text-secondary">{player.assists}</TableCell>
@@ -502,7 +539,16 @@ export default function Index() {
                           <TableCell className="font-bold text-primary">{index + 1}</TableCell>
                           <TableCell className="font-semibold">{player.name}</TableCell>
                           <TableCell className="text-center text-muted-foreground">{player.number}</TableCell>
-                          <TableCell className="text-sm text-muted-foreground">{player.team}</TableCell>
+                          <TableCell>
+                            <div className="flex items-center gap-2">
+                              <img 
+                                src={teamLogos[player.team]} 
+                                alt={`лого ${player.team}`}
+                                className="w-6 h-6 object-contain"
+                              />
+                              <span className="text-sm text-muted-foreground">{player.team}</span>
+                            </div>
+                          </TableCell>
                           <TableCell className="text-center">{player.games}</TableCell>
                           <TableCell className="text-center text-green-500">{player.wins}</TableCell>
                           <TableCell className="text-center text-red-500">{player.losses}</TableCell>
@@ -544,7 +590,16 @@ export default function Index() {
                           <TableCell className="font-bold text-primary">{index + 1}</TableCell>
                           <TableCell className="font-semibold">{player.name}</TableCell>
                           <TableCell className="text-center text-muted-foreground">{player.number}</TableCell>
-                          <TableCell className="text-sm text-muted-foreground">{player.team}</TableCell>
+                          <TableCell>
+                            <div className="flex items-center gap-2">
+                              <img 
+                                src={teamLogos[player.team]} 
+                                alt={`лого ${player.team}`}
+                                className="w-6 h-6 object-contain"
+                              />
+                              <span className="text-sm text-muted-foreground">{player.team}</span>
+                            </div>
+                          </TableCell>
                           <TableCell className="text-center">{player.games}</TableCell>
                           <TableCell className="text-center font-bold text-lg text-secondary">{player.goals}</TableCell>
                           <TableCell className="text-center">{player.assists}</TableCell>
@@ -580,7 +635,14 @@ export default function Index() {
                             <span className="text-muted-foreground">{game.time}</span>
                           </div>
                           <div className="flex items-center gap-4 flex-1 justify-center">
-                            <span className="font-semibold text-right flex-1">{game.homeTeam}</span>
+                            <div className="flex items-center gap-2 flex-1 justify-end">
+                              <span className="font-semibold">{game.homeTeam}</span>
+                              <img 
+                                src={teamLogos[game.homeTeam]} 
+                                alt={`лого ${game.homeTeam}`}
+                                className="w-8 h-8 object-contain"
+                              />
+                            </div>
                             {game.homeScore !== null ? (
                               <div className="flex items-center gap-2">
                                 <Badge className="bg-primary text-lg px-3">{game.homeScore}</Badge>
@@ -590,7 +652,14 @@ export default function Index() {
                             ) : (
                               <span className="text-muted-foreground px-4">VS</span>
                             )}
-                            <span className="font-semibold text-left flex-1">{game.awayTeam}</span>
+                            <div className="flex items-center gap-2 flex-1">
+                              <img 
+                                src={teamLogos[game.awayTeam]} 
+                                alt={`лого ${game.awayTeam}`}
+                                className="w-8 h-8 object-contain"
+                              />
+                              <span className="font-semibold">{game.awayTeam}</span>
+                            </div>
                           </div>
                         </div>
                       </CardContent>
@@ -683,7 +752,16 @@ export default function Index() {
                               {player.captain && <Badge variant="secondary" className="bg-secondary/20 text-secondary">К</Badge>}
                             </div>
                           </TableCell>
-                          <TableCell className="text-muted-foreground">{player.team}</TableCell>
+                          <TableCell>
+                            <div className="flex items-center gap-2">
+                              <img 
+                                src={teamLogos[player.team]} 
+                                alt={`лого ${player.team}`}
+                                className="w-6 h-6 object-contain"
+                              />
+                              <span className="text-muted-foreground">{player.team}</span>
+                            </div>
+                          </TableCell>
                           <TableCell>
                             <Badge variant="outline" className="bg-muted/50">
                               {player.position}
